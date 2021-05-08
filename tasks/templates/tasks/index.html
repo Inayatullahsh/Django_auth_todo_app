@@ -1,34 +1,25 @@
+{% extends "_base.html" %}
 {% load static %}
-<!doctype html>
-<html>
-<head>
-    <meta charset='utf-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <title>Tasks</title>
 
-    {% comment %} Boostrap5 beta CDN {% endcomment %}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-
-
-    {% comment %} Fontawesome CDN {% endcomment %}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
-
-
-    {% comment %} CSS File {% endcomment %}
+{% block style %}
+ {% comment %} CSS File {% endcomment %}
     <link rel="stylesheet" href="{% static 'tasks/css/styles.css' %}">
+{% endblock style %}
 
-
-</head>
-<body >
-
+{% block content %}
     <div class="container">
-        <div class="row d-flex justify-content-center align-items-center" style="min-height: 100vh">
+        <div class="row">
+            <div class="col-12 pt-2">
+            <p><a href="{% url 'index' %}" class="text-white mt-5">Back to Home</a></p>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center align-items-center" >
                 <div class="col-lg-5 col-md-8 col-sm-11 mt-5">
                     <div class="header text-center text-white lh-lg">
                         <p class="today fs-2 fw-bold">{{ today }}</p>
                     </div>
 
-                    <form class="d-flex" action="{% url 'add' %}" method="post">
+                    <form class="d-flex" action="{% url 'tasks:add' %}" method="post">
                         {% csrf_token %}
                         <div class="input-group mb-3">
                             {{ form.text }}
@@ -41,14 +32,14 @@
                         {% for task in task_list %}
                             <li class="d-flex bg-white py-2 px-3 rounded mb-3">
                                 {% if task.complete %}
-                                    <a href="{% url 'complete' task.id %}" title="complete item">
+                                    <a href="{% url 'tasks:complete' task.id %}" title="complete item">
                                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
                                     </a>
                                     <div class="text-left ps-3 flex-grow-1 complete">
                                         <span class="text font-monospace">{{ task.text }}</span>
                                     </div>
                                 {% else %}
-                                    <a href="{% url 'complete' task.id %}" title="complete item">
+                                    <a href="{% url 'tasks:complete' task.id %}" title="complete item">
                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                     </a>
                                     <div class="text-left ps-3 flex-grow-1">
@@ -57,7 +48,7 @@
                                 {% endif %}
 
 
-                                <a href="{% url 'delete' task.id %}" title="Delete item">
+                                <a href="{% url 'tasks:delete' task.id %}" title="Delete item">
                                     <span class='text-black-50'><i class="fas fa-times"></i></span>
                                 </a>
                             </li>
@@ -72,5 +63,4 @@
         </div>
     </div>
 
-</body>
-</html>
+{% endblock content %}

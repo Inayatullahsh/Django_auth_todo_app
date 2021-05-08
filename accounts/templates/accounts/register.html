@@ -1,0 +1,77 @@
+{% extends '_base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
+{% endblock style %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center mt-5">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-6">
+                <form class="form" method='post' action="{% url 'accounts:register' %}">
+                    {% csrf_token %}
+                    <h2>Registration</h2>
+                    <div class="inputbox mt-3">
+                        <span>{{ form.username.label }}</span>
+                        {% render_field form.username class="form-control" name="username" placeholder="Name" %}
+                        {% comment %} <input type="text" placeholder="Name" name="" class="form-control">
+                        {% endcomment %}
+                    </div>
+                    <div class="inputbox mt-3">
+                        <span>{{ form.email.label }}</span>
+                        {% render_field form.email class="form-control" name="email" placeholder="Email" %}
+                        {% comment %} <input type="text" placeholder="Email" name="" class="form-control"> </div>
+                    {% endcomment %}
+                    <div class="inputbox mt-3">
+                        <span>{{ form.password1.label }}</span>
+                        {% render_field form.password1 class="form-control" name="password1" placeholder="********" %}
+                        {% comment %} <input type="text" placeholder="+1 455 445 4532" name="" class="form-control">
+                        {% endcomment %}
+                    </div>
+                    <div class="inputbox mt-3">
+                        <span>{{ form.password2.label }}</span>
+                        {% render_field form.password2 class="form-control" name="password2" placeholder="********" %}
+                        {% comment %} <input type="text" placeholder="+1 455 445 4532" name="" class="form-control">
+                        {% endcomment %}
+                    </div>
+                    <div class="inputbox mt-3">
+                        {% if form.errors %}
+                        <div style="text-align: center; margin-bottom: 2rem">
+                            <p>Please fix the following errors:</p>
+                            <ul>
+                                {% for field in form %}
+                                {% if field.errors %}
+                                {% for error in field.errors %}
+                                <li><a href="#id_{{ field.name }}" class="error">{{ error|escape }}</a></li>
+                                {% endfor %}
+                                {% endif %}
+                                {% endfor %}
+                            </ul>
+                            {% if form.non_field_errors %}
+                            {{ form.non_field_errors }}
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="text-right">
+                            <button class="btn btn-success register btn-block">Register</button>
+                        </div>
+                        <a href="#" class="login">Login</a>
+                    </div>
+                    <div class="form-check mt-2"> <input class="form-check-input" type="checkbox" value=""
+                            id="flexCheckChecked" checked> <label class="form-check-label" for="flexCheckChecked"> I
+                            agree to the terms and conditions of <a href="" class="login">Privacy & Policy</a> </label>
+                    </div>
+                </form>
+            </div>
+            {% comment %} <div class="col-md-6">
+                <div class="text-center mt-5"> <img src="https://i.imgur.com/98GXnDD.png" width="400"> </div>
+            </div> {% endcomment %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

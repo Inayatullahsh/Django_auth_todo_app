@@ -1,0 +1,63 @@
+body {
+    background-color: #020631;
+}
+
+.container {
+    height: 100vh
+}
+
+.card {
+    width: 100%;
+    padding: 30px
+}
+
+.form {
+    padding: 20px
+}
+
+.form-control {
+    height: 50px;
+    background-color: #eee
+}
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #020631;
+    outline: 0;
+    box-shadow: none;
+    background-color: #eee
+}
+
+.inputbox {
+    margin-bottom: 15px
+}
+
+.register {
+    width: 200px;
+    height: 51px;
+    background-color: #020631;
+    border-color: #020631
+}
+
+.register:hover {
+    width: 200px;
+    height: 51px;
+    background-color: #020631;
+    border-color: #020631
+}
+
+.login {
+    color: #020631;
+    text-decoration: none
+}
+
+.login:hover {
+    color: #020631;
+    text-decoration: none
+}
+
+.form-check-input:checked {
+    background-color: #020631;
+    border-color: #020631
+}
