@@ -1,4 +1,6 @@
 from django.shortcuts import redirect, render
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 
 from .forms import CreateUserForm
 # Create your views here.
@@ -21,7 +23,17 @@ def register_view(request):
 
 
 def login_view(request):
-    pass
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('index')
+        else:
+            messages.info(request, 'Username OR Password is incorrect!')
+
+    return render(request, 'accounts/login.html')
 
 
 def logout_view(request):
