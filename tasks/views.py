@@ -35,7 +35,7 @@ def addTask(request):
     if form.is_valid():
         form.save()
 
-    return redirect('index')
+    return redirect('tasks:index')
 
 
 def completeTask(request, task_id):
@@ -48,7 +48,7 @@ def completeTask(request, task_id):
         item.complete = True
         item.save()
 
-    return redirect('index')
+    return redirect('tasks:index')
 
 
 def deleteTask(request, task_id):
@@ -56,4 +56,4 @@ def deleteTask(request, task_id):
 
     item.delete()
 
-    return redirect('index')
+    return redirect('tasks:index')
