@@ -39,13 +39,8 @@ def login_view(request):
 
 
 def logout_view(request):
-<<<<<<< HEAD
-    logout(request)
-    return redirect('index')
-=======
     if request.user.is_authenticated:
         logout(request)
         return redirect('index')
     else:
         return redirect('accounts:login')
->>>>>>> dev
