@@ -24,31 +24,6 @@
                         <input type="password" placeholder="Password" name="password" class="form-control">
                     </div>
 
-                    {% if form.errors %}
-                    <div class="inputbox mt-3">
-                        <div style="">
-                            <p>Please fix the following errors:</p>
-
-                            {% for field in form %}
-                            {% if field.errors %}
-                            {% for error in field.errors %}
-                            <div class="alert alert-danger">
-                                <a href="#id_{{ field.name }}" class="error">
-                                <strong>{{ error|escape }}</strong>
-                                </a>
-                            </div>
-
-                            {% endfor %}
-                            {% endif %}
-                            {% endfor %}
-
-                            {% if form.non_field_errors %}
-                            {{ form.non_field_errors }}
-                            {% endif %}
-                        </div>
-                    </div>
-                    {% endif %}
-
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="text-right">
                             <button type="submit" class="btn btn-success register btn-block">Login</button>
