@@ -12,7 +12,9 @@ def register_view(request):
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            messages.success(request, "You'r account created successfully!")
+            login(request, user)
             return redirect('index')
 
     context = {
@@ -24,6 +26,7 @@ def register_view(request):
 
 def login_view(request):
     if request.user.is_authenticated:
+        messages.info(request, "You'r already logged in!")
         return redirect('index')
     else:
         if request.method == 'POST':
@@ -31,6 +34,7 @@ def login_view(request):
             password = request.POST['password']
             user = authenticate(username=username, password=password)
             if user is not None:
+                messages.success(request, "You've successfully logged in!")
                 login(request, user)
                 return redirect('index')
             else:
