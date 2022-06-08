@@ -1,13 +1,14 @@
+from django.urls import reverse
 from django.db.transaction import commit
 from django.shortcuts import render, redirect
 from datetime import datetime
-
+from django.contrib.auth.decorators import login_required
 from .models import Task
 from .forms import TaskModelForm
 # Create your views here.
 
 
-def index(request):
+def homepage(request):
     weekday = {
         '0': "Sunday 🖖",
         '1': "Monday 💪😀",
@@ -20,26 +21,30 @@ def index(request):
 
     form = TaskModelForm()
 
-    task_list = Task.objects.filter(user__username=request.user.username)
+    try:
+        task_list = Task.objects.filter(user=request.user.pk)
+    except Task.DoesNotExist:
+        task_list = None
     today = datetime.now().strftime('%w')
     context = {
         'form': form,
         'task_list': task_list,
         'today': weekday[today]
     }
-    return render(request, 'tasks/index.html', context)
+    return render(request, 'index.html', context)
 
 
+@login_required
 def addTask(request):
     form = TaskModelForm(request.POST)
-
     if form.is_valid():
         task = form.save(commit=False)
         task.user = request.user
         task.save()
-    return redirect('tasks:index')
+    return redirect('homepage')
 
 
+@login_required
 def completeTask(request, task_id):
     item = Task.objects.get(pk=task_id)
 
@@ -50,12 +55,13 @@ def completeTask(request, task_id):
         item.is_completed = True
         item.save()
 
-    return redirect('tasks:index')
+    return redirect('homepage')
 
 
+@login_required
 def deleteTask(request, task_id):
     item = Task.objects.get(pk=task_id)
 
     item.delete()
 
-    return redirect('tasks:index')
+    return redirect('homepage')

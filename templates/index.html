@@ -1,45 +1,56 @@
-{% extends '_base.html' %}
-
+{% extends "_base.html" %}
+{% load static %}
+{% load widget_tweaks %}
 
 {% block title %}
-Home
+Tasks
 {% endblock title %}
 
-
 {% block content %}
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <a class="navbar-brand" href="#">Navbar</a>
-    <div class="collapse navbar-collapse flex-grow-0" id="navbarTogglerDemo03">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'tasks:index' %}">To-do List</a>
-        </li>
-       {% if user.is_authenticated %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'accounts:logout' %}">Logout</a>
-          </li>
-        {% else %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'accounts:register' %}">Register</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'accounts:login' %}">login</a>
-          </li>
-        {% endif %}
-      </ul>
+<div class="row d-flex justify-content-center align-items-center">
+    <div class="col-lg-5 col-md-8 col-sm-11 mt-5">
+        <div class="header text-center text-white lh-lg">
+            <p class="today fs-2 fw-bold">{{ today }}</p>
+        </div>
+
+        <form class="d-flex" action="{% url 'tasks:add' %}" method="post">
+            {% csrf_token %}
+            <div class="input-group mb-3">
+                {{ form.text }}
+                <button class="btn fw-bold" type="submit" id="button-addon2">ADD</button>
+            </div>
+
+        </form>
+
+        <ul class="todo-list list-unstyled mt-5">
+            {% for task in task_list %}
+            <li class="d-flex bg-white py-2 px-3 rounded mb-3">
+                {% if task.is_completed %}
+                <a href="{% url 'tasks:complete' task.id %}" title="complete item text-"><small>&#10004;</small></a>
+
+                <div class="text-left ps-3 flex-grow-1 complete">
+                    <span class="text font-monospace text-muted">{{ task.text }}</span>
+                </div>
+                {% else %}
+                <a href="{% url 'tasks:complete' task.id %}" title="complete item"><small>&#10004;</small></a>
+                <div class="text-left ps-3 flex-grow-1">
+                    <span class="text font-monospace">{{ task.text }}</span>
+                </div>
+                {% endif %}
+                <a href="{% url 'tasks:delete' task.id %}" title="Delete item">
+                    <small>&#10007;</small>
+                </a>
+            </li>
+            {% empty %}
+            <p class="text-capitalize font-monospace text-center text-warning">No Task Available!</p>
+            {% endfor %}
+        </ul>
+
+        <p class="mt-3 fs-4 text-center"> Made with ❤️ by <a class="text-primary text-decoration-none"
+                href="https://twitter.com/InayatUllahShi1" target="_blank" rel="noopener noreferrer">Inayat
+                Ullah</a></p>
+
     </div>
-  </div>
-</nav>
-<div class="bg-light">
-<div class="container" style="height: 90%">
-    {% if user.is_authenticated %}
-    <h1 class="">Home Page</h1>
-      <h2>Welcome, {{ user.username }}</h2>
-    {% endif %}
 </div>
-</div>
+
 {% endblock content %}

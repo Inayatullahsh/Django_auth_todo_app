@@ -1,0 +1,42 @@
+{% extends '_base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}
+Create Your Account
+{% endblock title %}
+
+{% block content %}
+<div class="row h-100 align-items-center justify-content-center">
+    <div class="col-10 col-sm-8 col-md-5 rounded bg-white py-2">
+        <div class="mb-4 mt-2 text-center">
+            <h2 class="fs-1 fw-bolder">Signup</h2>
+            <p>Have an account? <a href="{% url 'login' %}">Login</a></p>
+        </div>
+        <form method="post" action="{% url 'register' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                {{ form.username.label_tag }}
+                {% render_field form.username class="form-control" placeholder="JohnDoe" name="username" placeholder="Name" %}
+                <span class="text-danger">{{ form.username.errors }}</span>
+            </div>
+            <div class="mb-3">
+                {{ form.email.label_tag }}
+                {% render_field form.email class="form-control" placeholder="JohnDoe@example.com" name="username" placeholder="Name" %}
+                <span class="text-danger">{{ form.email.errors }}</span>
+            </div>
+            <div class="mb-3">
+                {{ form.password1.label_tag }}
+                {% render_field form.password1 class="form-control" placeholder="xxxxxxxx" name="username" placeholder="Name" %}
+                <span class="text-danger">{{ form.password1.errors }}</span>
+            </div>
+            <div class="mb-3">
+                {{ form.password2.label_tag }}
+                {% render_field form.password2 class="form-control" placeholder="xxxxxxxx" name="username" placeholder="Name" %}
+                <span class="text-danger">{{ form.password2.errors }}</span>
+            </div>
+            <button type="submit" class="btn">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}

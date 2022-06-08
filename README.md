@@ -1,1 +1,1 @@
-# Django Authenticated To-do App
+# Django To-do App with User Authentication
