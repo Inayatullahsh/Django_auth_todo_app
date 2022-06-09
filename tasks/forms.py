@@ -14,6 +14,7 @@ class TaskModelForm(forms.ModelForm):
                     'class': 'form-control text-bloack-50',
                     'placeholder': '✍️ Add item...',
                     'autocomplete': 'off',
+                    'autofocus': 'autofocus',
                     'aria-label': '✍️ Add item...',
                     'aria-describedby': 'button-addon2'
                 }

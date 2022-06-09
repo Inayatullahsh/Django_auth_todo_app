@@ -1,17 +1,42 @@
-from django.shortcuts import redirect, render
-from .forms import CreateUserForm
-from django.contrib.auth import authenticate, login, logout
+from datetime import datetime
+
 from django.contrib import messages
-from django.shortcuts import render
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect, render
+from tasks.forms import TaskModelForm
+from tasks.models import Task
+
+from .forms import CreateUserForm
 
 # Create your views here.
 
 
-def index(request):
-    return render(request, 'index.html')
+@login_required
+def homepage(request):
+    weekday = {
+        '0': "Sunday 🖖",
+        '1': "Monday 💪😀",
+        '2': "Tuesday 😜",
+        '3': "Wednesday 😌☕️",
+        '4': "Thursday 🤗",
+        '5': "Friday 🍻",
+        '6': "Saturday 😴"
+    }
 
+    form = TaskModelForm()
 
-# Create your views here.
+    try:
+        task_list = Task.objects.filter(user=request.user.pk)
+    except Task.DoesNotExist:
+        task_list = None
+    today = datetime.now().strftime('%w')
+    context = {
+        'form': form,
+        'task_list': task_list,
+        'today': weekday[today]
+    }
+    return render(request, 'index.html', context)
 
 
 def register_view(request):

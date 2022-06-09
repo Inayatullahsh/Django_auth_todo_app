@@ -1,37 +1,14 @@
-from django.urls import reverse
-from django.db.transaction import commit
-from django.shortcuts import render, redirect
 from datetime import datetime
+
 from django.contrib.auth.decorators import login_required
-from .models import Task
+from django.db.transaction import commit
+from django.shortcuts import redirect, render
+from django.urls import reverse
+
 from .forms import TaskModelForm
+from .models import Task
+
 # Create your views here.
-
-
-def homepage(request):
-    weekday = {
-        '0': "Sunday 🖖",
-        '1': "Monday 💪😀",
-        '2': "Tuesday 😜",
-        '3': "Wednesday 😌☕️",
-        '4': "Thursday 🤗",
-        '5': "Friday 🍻",
-        '6': "Saturday 😴"
-    }
-
-    form = TaskModelForm()
-
-    try:
-        task_list = Task.objects.filter(user=request.user.pk)
-    except Task.DoesNotExist:
-        task_list = None
-    today = datetime.now().strftime('%w')
-    context = {
-        'form': form,
-        'task_list': task_list,
-        'today': weekday[today]
-    }
-    return render(request, 'index.html', context)
 
 
 @login_required

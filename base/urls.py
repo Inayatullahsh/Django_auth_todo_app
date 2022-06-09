@@ -1,6 +1,6 @@
 from django.urls import path
 
-from tasks.views import homepage
+from .views import homepage
 from . import views
 
 urlpatterns = [
