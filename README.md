@@ -42,4 +42,9 @@ To make the app live, run the following command:
 $ python manage.py runserver
 ```
 and now navigate to http://127.0.0.1:8000 in your browser.
-Happy coding !
+
+__Happy coding!__
+
+<a href="https://www.buymeacoffee.com/inayatullah">
+<img src="static/screenshots/bmc-button.svg" width="200">
+</a>
