@@ -46,7 +46,7 @@ def register_view(request):
         form = CreateUserForm(request.POST)
         if form.is_valid():
             user = form.save()
-            messages.success(request, "You'r account created successfully!")
+            messages.success(request, "You're successfully registered!")
             login(request, user)
             return redirect('homepage')
 
@@ -59,7 +59,7 @@ def register_view(request):
 
 def login_view(request):
     if request.user.is_authenticated:
-        messages.info(request, "You'r already logged in!")
+        messages.info(request, "You're already logged in!")
         return redirect('homepage')
     else:
         if request.method == 'POST':
