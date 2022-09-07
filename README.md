@@ -45,6 +45,6 @@ and now navigate to http://127.0.0.1:8000 in your browser.
 
 __Happy coding!__
 
-<a href="https://twitter.com/IUShinwari">
+<a href="https://www.buymeacoffee.com/inayatullah">
 <img src="static/screenshots/bmc-button.svg" width="200">
 </a>
